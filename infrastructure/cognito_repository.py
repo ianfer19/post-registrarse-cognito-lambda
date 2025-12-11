@@ -1,8 +1,8 @@
 import boto3
 import uuid
 from botocore.exceptions import ClientError
-from src.domain.exceptions import CognitoError
-from src.utils.logger import get_logger
+from domain.exceptions import CognitoError
+from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
