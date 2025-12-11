@@ -11,7 +11,7 @@ logger = get_logger(__name__)
 USER_POOL_ID = os.environ["USER_POOL_ID"]
 CLIENT_ID = os.environ["CLIENT_ID"]
 
-cognito_repo = CognitoRepository(USER_POOL_ID, CLIENT_ID)
+cognito_repo = CognitoRepository(CLIENT_ID)
 signup_service = SignUpService(cognito_repo)
 
 def lambda_handler(event, context):
