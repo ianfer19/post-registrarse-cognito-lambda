@@ -1,0 +1,34 @@
+import json
+import os
+from src.application.signup_service import SignUpService
+from src.infrastructure.cognito_repository import CognitoRepository
+from src.utils.response import success, error
+from src.domain.exceptions import DomainValidationError, CognitoError
+from src.utils.logger import get_logger
+
+logger = get_logger(__name__)
+
+USER_POOL_ID = os.environ.get("USER_POOL_ID")
+
+cognito_repo = CognitoRepository(user_pool_id=USER_POOL_ID)
+signup_service = SignUpService(cognito_repo)
+
+def lambda_handler(event, context):
+    logger.info("Lambda invoked")
+
+    try:
+        body = json.loads(event.get("body", "{}"))
+
+        result = signup_service.signup(body)
+
+        return success(result, 201)
+
+    except DomainValidationError as e:
+        return error(str(e), 400)
+
+    except CognitoError as e:
+        return error(str(e), 500)
+
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}")
+        return error("Internal server error", 500)
