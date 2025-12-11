@@ -25,7 +25,7 @@ class SignUpService:
             phone_number=payload["phone_number"]
         )
 
-        result = self.cognito_repo.create_user(request)
+        result = self.cognito_repo.signup_user(request)
 
         logger.info("User successfully created in Cognito.")
 
