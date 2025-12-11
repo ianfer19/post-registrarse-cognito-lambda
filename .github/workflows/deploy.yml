@@ -28,5 +28,5 @@ jobs:
       - name: Deploy to AWS Lambda
         run: |
           aws lambda update-function-code \
-            --function-name post-registro-cognito-lambda \
+            --function-name post-registrarse-cognito-lambda \
             --zip-file fileb://function.zip
