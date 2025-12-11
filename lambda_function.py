@@ -1,10 +1,10 @@
 import json
 import os
-from src.application.signup_service import SignUpService
-from src.infrastructure.cognito_repository import CognitoRepository
-from src.utils.response import success, error
-from src.domain.exceptions import DomainValidationError, CognitoError
-from src.utils.logger import get_logger
+from application.signup_service import SignUpService
+from infrastructure.cognito_repository import CognitoRepository
+from utils.response import success, error
+from domain.exceptions import DomainValidationError, CognitoError
+from utils.logger import get_logger
 
 logger = get_logger(__name__)
 

@@ -1,5 +1,5 @@
 import re
-from src.domain.exceptions import DomainValidationError
+from domain.exceptions import DomainValidationError
 
 PASSWORD_REGEX = (
     r'^(?=.*[a-z])'       # 1 minúscula

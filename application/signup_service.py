@@ -1,8 +1,8 @@
-from src.domain.models import SignUpRequest
-from src.utils.validation import validate_signup_data
-from src.infrastructure.cognito_repository import CognitoRepository
-from src.domain.exceptions import DomainValidationError
-from src.utils.logger import get_logger
+from domain.models import SignUpRequest
+from utils.validation import validate_signup_data
+from infrastructure.cognito_repository import CognitoRepository
+from domain.exceptions import DomainValidationError
+from utils.logger import get_logger
 
 logger = get_logger(__name__)
 

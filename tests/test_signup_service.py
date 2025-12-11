@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import MagicMock
-from src.application.signup_service import SignUpService
-from src.domain.exceptions import DomainValidationError, CognitoError
+from application.signup_service import SignUpService
+from domain.exceptions import DomainValidationError, CognitoError
 
 VALID_PAYLOAD = {
     "email": "test@example.com",
