@@ -1,5 +1,6 @@
 import boto3
 from botocore.exceptions import ClientError
+from uuid import uuid4
 from domain.exceptions import CognitoError
 from utils.logger import get_logger
 
@@ -15,10 +16,12 @@ class CognitoRepository:
         try:
             logger.info("Signing up user in Cognito using sign_up API...")
 
-            # 🚀 Registro normal que sí envía correo de confirmación
+            # 👈 Username NO PUEDE ser email porque tienes alias activado
+            generated_username = str(uuid4())
+
             response = self.client.sign_up(
                 ClientId=self.client_id,
-                Username=signup_request.email,
+                Username=generated_username,  # 👈 UUID como username
                 Password=signup_request.password,
                 UserAttributes=[
                     {"Name": "email", "Value": signup_request.email},
@@ -29,10 +32,10 @@ class CognitoRepository:
                 ]
             )
 
-            logger.info("User signed up. Confirmation code sent.")
+            logger.info(f"Cognito sign_up success. Username: {generated_username}")
 
             return {
-                "username": signup_request.email,
+                "username": generated_username,  # 👈 este UUID es el que debes usar en confirm
                 "email": signup_request.email,
                 "message": "Confirmation code sent to email."
             }
