@@ -1,26 +1,24 @@
 import json
-import os
 from application.signup_service import SignUpService
 from infrastructure.cognito_repository import CognitoRepository
 from utils.response import success, error
 from domain.exceptions import DomainValidationError, CognitoError
 from utils.logger import get_logger
+import os
 
 logger = get_logger(__name__)
 
-USER_POOL_ID = os.environ.get("USER_POOL_ID")
+USER_POOL_ID = os.environ["USER_POOL_ID"]
 
-cognito_repo = CognitoRepository(user_pool_id=USER_POOL_ID)
+cognito_repo = CognitoRepository(USER_POOL_ID)
 signup_service = SignUpService(cognito_repo)
 
 def lambda_handler(event, context):
-    logger.info("Lambda invoked")
+    logger.info("Signup Lambda invoked")
 
     try:
         body = json.loads(event.get("body", "{}"))
-
         result = signup_service.signup(body)
-
         return success(result, 201)
 
     except DomainValidationError as e:

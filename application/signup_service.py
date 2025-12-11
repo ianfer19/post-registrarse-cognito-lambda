@@ -14,10 +14,9 @@ class SignUpService:
     def signup(self, payload: dict):
         logger.info("Executing signup service...")
 
-        # Validación a nivel de dominio
         validate_signup_data(payload)
 
-        signup_request = SignUpRequest(
+        request = SignUpRequest(
             email=payload["email"],
             password=payload["password"],
             name=payload["name"],
@@ -26,8 +25,12 @@ class SignUpService:
             phone_number=payload["phone_number"]
         )
 
-        # Crear usuario en Cognito
-        result = self.cognito_repo.create_user(signup_request)
+        result = self.cognito_repo.create_user(request)
 
-        logger.info("User successfully created.")
-        return {"message": "User created successfully", "user": signup_request.email}
+        logger.info("User successfully created in Cognito.")
+
+        return {
+            "message": "User created successfully",
+            "email": payload["email"],
+            "cognito_username": result["username"]
+        }
