@@ -32,7 +32,7 @@ class CognitoRepository:
             # Forzar el password como definitivo (no temporal)
             self.client.admin_set_user_password(
                 UserPoolId=self.user_pool_id,
-                Username=signup_request.email,
+                Username=response["User"]["Username"],
                 Password=signup_request.password,
                 Permanent=True
             )
